@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 import libs.config as config
+from libs.command_manager import check
 from libs.embedmaker import officialEmbed
 from libs.utils import sanitize_check
 
@@ -10,6 +11,7 @@ from libs.utils import sanitize_check
 #####################
 
 rules = config.get_string("rules")
+s_not_sanitized = config.get_string("commands")["not_sanitized"]
 
 
 #############
@@ -45,14 +47,16 @@ class Rules(commands.Cog, name="Rules Commands"):
         self.bot = bot
 
     @commands.command(description="Sends the rules.")
+    @check(roles=["trialmod", "mod", "modlead", "admin"], dm_flag=False)
     async def rules(self, ctx):
         await send_rules(ctx.channel)
 
     @commands.command(description="Sends the requested rule.", usage="{rule}")
+    @check(roles=["trialmod", "mod", "modlead", "admin"], dm_flag=False)
     async def rule(self, ctx, ruleNb):
 
         if not sanitize_check(ruleNb):
-            await ctx.send(config.get_string("not_sanitized"))
+            await ctx.send(s_not_sanitized)
             return
 
         message = "Rule " + ruleNb + " does not exist."

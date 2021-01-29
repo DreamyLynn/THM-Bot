@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.utils import get
 
 import libs.config as config
-from libs.command_manager import roles, channels, command
+from libs.command_manager import check
 
 ####################
 # Config variables #
@@ -29,10 +29,11 @@ class StaffVote(commands.Cog, name="Staff Vote"):
         self.bot = bot
 
     @commands.command(name="clearcm", description=s_staff_vote["help_desc"], hidden=True)
+    @check(roles=["admin",
+                  "mod"],
+           channels="staff_voting_cm",
+           dm_flag=False)
     async def clear_cm(self, ctx):
-        if not await command(ctx, roles=[roles.ADMIN, roles.MODLEAD], channels=[channels.STAFF_VOTING_CM]):
-            return
-
         await ctx.channel.purge(limit=100)
         await ctx.send(s_staff_vote["cleared"])
 

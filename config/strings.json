@@ -34,6 +34,14 @@
             "If there's more than one line (that don't start with \"grep\" or sudo), do the following steps",
             "Type sudo killall openvpn into your terminal and press enter",
             "Start the VPN with sudo openvpn <path-to-config>"
+        ],
+        "vpnscript":[
+            "Use our VPN troubleshooting script to diagnose common issues!",
+            "https://github.com/tryhackme/openvpn-troubleshooting"
+        ],
+        "aocfaq":[
+            "Read the FAQ for AoC 2020",
+            "https://www.reddit.com/r/tryhackme/collection/705c2bce-b424-40e5-8875-ea24539c483f"
         ]
     },
     "feedback":{
@@ -103,13 +111,13 @@
         "leaderboard":{
             "help_desc":"Prints the leaderboard.",
             "generating":"Generating global leaderboard...",
-            "footer":"Made with love by the TryHackMe Discord Bot"
+            "footer":"Made with love by the TryHackMe Discord Bot",
+            "invalid_page": "This page doesn't exist. Available pages: {}"
         },
         "monthly":{
             "help_desc":"Prints this month's leaderboard.",
             "generating":"Generating monthly leaderboard...",
-            "announcement":"Here is last month's leaderboard.\n Congratulations!",
-            "footer":"Made with love by the TryHackMe Discord Bot"
+            "announcement":"Here is last month's leaderboard.\n Congratulations!"
         }
     },
     "room":{
@@ -125,25 +133,107 @@
     "rules":[
 		"No unsolicited direct messages (DMs) to other members of the discord. This includes staff. Verify that the member you are messaging is ok with you sending them DMs. The only exception to this rule is if a situation warrants the involvement of a moderator in order to handle something such as harassment or a situation where another member of the discord has made you feel uncomfortable.",
 		"No personal drama or drama from any other discord community is allowed to be brought into this discord. This is a space for infosec discussions and learning, keep it that way.",
-		"No excessive self promotion. Linking to another discord server is strictly prohibited, just don't turn it into advertising.",
+		"No excessive self promotion. Linking to another discord server is strictly prohibited, unless you have the infosec-developer role and the server is being linked as a resource to provide help with a specific tool (e.g. linking the Ciphey official Discord server for help with Ciphey). Don't turn it into advertising.",
 		"Keep it civil. If action is necessary in a dispute or any other sort of disruption on this discord punishment will be doled out evenly both to the individual(s) who started the issue and to those who reacted inappropriately in their response.",
-		"No cheating is allowed whatsoever within this discord. Any cheating (other than specifically within a developmental environment where it has been preapproved by staff) will result in an immediate and permanent ban.",
+		"No cheating is allowed whatsoever within this discord. Any cheating (other than specifically within a developmental environment where it has been preapproved by staff) will result in an immediate and permanent ban. Point duplication or point cheating of any kind on TryHackMe.com will result in a permanent ban from the site and discord.",
 		"Discrimination of any kind is not tolerated and will be met with punishment accordingly. Racism will result in a permanent ban without question.",
 		"Administrators reserve the right to modify the rules at any time and extend them accordingly to cover infractions which may not be currently included in these rules.",
-		"Keep conversations SFW (Safe for work). This is an educational and professional environment, be sure that your words do not offend or make other members uncomfortable.",
-		"No discussion of illegal topics or actions.",
+		"Keep conversations SFW (Safe for work). This is an educational and professional environment, be sure that your words do not offend or make other members uncomfortable. This server is exclusively English speaking for the purposes of moderation.",
+		"No discussion of illegal/unethical topics or actions. If the target device doesn't belong to you, and you don't have specific permission to perform an attack from the *owner* of the target: you don't do it, and we don't talk about it. This also applies to software licenses / copyright violations. If in doubt, please ask a moderator before posting your message -- preferably without breaking rule 1. Whether an action is illegal or not is at the sole discretion of the moderation team.",
 		"Do not post viruses or malicious files without explicit permission from the administrative staff. We understand that this is a discord for learning, however, there are plenty of places online to get malware for forensic examination and reverse engineering.",
-        "No distribution of illegally obtained materials within the discord. Do not pirate books in #bookclub",
+        "No distribution of illegally obtained materials within the discord. Do not pirate books in <#679099130320125952>",
         "If you use a Nitro boost on the server you get a pick a new server emote. If you do this twice you get two emotes. Emotes must be server appropriate.",
-        "When asking for help/tech support please perform research to your fullest ability. Mods and Community Mentors have the right to refuse helping those who have not done troubleshooting/research on their own first. Clearly phrase your questions as we (fortunately for all parties involved) cannot read your mind. Please include the room, task, and question number in your question if possible.",
-        "You're welcome to post livestreams, writeups, and videos of THM content, just please post them in #streams-and-videos.",
-        "Please leave any disciplinary measures to the discord staff (Trial Mods, Mods, and Admins). This is also known as no 'mini-modding'. If something is happening, please just let the staff know and we can take care of it <3"
+        "When asking for help/tech support please perform research to your fullest ability. Mods and Community Mentors have the right to refuse helping those who have not done troubleshooting/research on their own first. Clearly phrase your questions as we (fortunately for all parties involved) cannot read your mind. Please include the room, task, and question number in your question if possible. \n\nAlthough we are a learning platform, we politely ask that you respect the competitive nature of newly released challenges. As such, no hints for new challenge boxes should be given immediately after a release (72 hours, by default), unless instructed otherwise by the content creator.",
+        "You're welcome to post livestreams, writeups, and videos of THM content, just please post them in <#644263827742916628>. Writeups should be submitted to the room in question and approved by the creator before being posted here.",
+        "Please leave any disciplinary measures to the discord staff (Trial Mods, Mods, and Admins). This is also known as no 'mini-modding'. If something is happening, please just let the staff know and we can take care of it <3. This includes no dog-piling. Let a mod handle it.",
+        "No spamming, please. This includes excess repeating of the same messages (typically from five upwards, however, staff reserve the right to further judgement in these cases).",
+        "Do not intentionally mislead others with malicious intent, especially should this misleading end up in destruction of property or otherwise damaging. Things like rickrolling are still allowed, just don't lead someone to damaging their computer/system."
     ],
+    "docs":{
+        "help_desc":"List our documented topics.",
+        "error":"An unexpected error has occurred. Please contact THM's BOT maintainers.",
+        "topics":[
+            "",
+            "Visit the help site",
+            "Learn how to sync your THM profile to Discord",
+            "Learn about our student discount programme",
+            "View all the TryHackMe levels & point requirements",
+            "Get started with making TryHackMe room",
+            "Learn about the TryHackMe room review process",
+            "Read about the TryHackMe API",
+            "How to play TryHackMe's King of the Hill (KoTH)",
+            "What rooms should you do? A free guide for beginners",
+            "Learn about TryHackMe's Bug Bounty Programme!"
+        ],
+        "commands":[
+            "",
+            "!docs url",
+            "!docs verify",
+            "!docs student",
+            "!docs levels",
+            "!docs room-notes",
+            "!docs room-review",
+            "!docs api",
+            "!docs koth",
+            "!docs free-path",
+            "!docs bug-bounty"
+        ],
+        "url":{
+            "help_desc":"Visit the help site",
+            "url":"https://help.tryhackme.com/",
+            "title":"Help Website"
+        },
+        "verify":{
+            "help_desc":"Learn how to verify your THM profile",
+            "url":"https://help.tryhackme.com/community/discord",
+            "title":"Verify your TryHackMe Profile!"
+        },
+        "student":{
+            "help_desc":"Learn about our student discount programme",
+            "url":"https://help.tryhackme.com/billing/student-discount",
+            "title":"Redeem your student discount!"
+        },
+        "levels":{
+            "help_desc":"View all the TryHackMe levels & their point requirements",
+            "url":"https://help.tryhackme.com/using-tryhackme/what-are-levels-on-tryhackme",
+            "title":"View all the TryHackMe levels & their point requirements"
+        },
+        "room_notes":{
+            "help_desc":"Get started with making TryHackMe rooms",
+            "url":"https://help.tryhackme.com/room-creation",
+            "title":"Get started with making TryHackMe rooms!"
+        },
+        "room_review":{
+            "help_desc":"Learn about the TryHackMe room review process",
+            "url":"https://help.tryhackme.com/room-creation/the-room-review-proccess",
+            "title":"Learn about the TryHackMe room review process!"
+        },
+        "api":{
+            "help_desc":"Read about the TryHackMe API",
+            "url":"https://thm-community.github.io/api-docs/",
+            "title":"Read about the TryHackMe API!"
+        },
+        "koth":{
+            "help_desc":"How to play TryHackMe's King of the Hill (KoTH)",
+            "url":"https://help.tryhackme.com/using-tryhackme/king-of-the-hill",
+            "title":"How to play TryHackMe's King of the Hill (KoTH)"
+        },
+        "free_path":{
+            "help_desc":"Don't know where to start? Read our blog post to learn about the free rooms to get you started!",
+            "url":"https://blog.tryhackme.com/free_path",
+            "title":"What rooms should you do? A free guide for beginners"
+        },
+        "bug_bounty":{
+            "help_desc":"Learn about TryHackMe's Bug Bounty Programme!",
+            "url":"https://help.tryhackme.com/miscellaneous/the-bug-bounty-programme",
+            "title":"Learn about TryHackMe's Bug Bounty Programme!"
+        }
+    },
     "socials":{
         "help_desc":"Get links to all our socials.",
         "github":{
             "help_desc":"Get the bot's Github link.",
-            "url":"https://github.com/DarkStar7471/THM-Bot",
+            "url":"https://github.com/thm-community/THM-Bot",
             "title":"Bot's Github Repository Link",
             "pic":"https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
         },
@@ -170,8 +260,26 @@
         },
         "discord":{
             "help_desc":"Get the Discord invite.",
-            "url":"https://discord.gg/F7ERYzz",
+            "url":"https://discord.gg/tryhackme",
             "title":"TryHackMe's Discord:",
+            "pic":"https://tryhackme.com/img/THMlogo.png"
+        },
+        "blog":{
+            "help_desc":"Get the TryHackMe Blog URL!",
+            "url":"https://blog.tryhackme.com",
+            "title":"TryHackMe's Official Blog:",
+            "pic":"https://tryhackme.com/img/THMlogo.png"
+        },
+        "shop":{
+            "help_desc":"Get the TryHackMee Store URL!",
+            "url":"https://store.tryhackme.com/",
+            "title":"TryHackMe's Official Store:",
+            "pic":"https://tryhackme.com/img/THMlogo.png"
+        },
+        "email":{
+            "help_desc":"Contact us for support, teaching enquires and more!",
+            "url":"hello@tryhackme.com",
+            "title":"Contact us for support, teaching enquires and more!",
             "pic":"https://tryhackme.com/img/THMlogo.png"
         }
     },
@@ -182,6 +290,11 @@
     "stats":{
         "title":"New Milestone reached!",
         "desc":"Wow! We have reached {} users, welcome everyone :)"
+    },
+    "ping_mods":{
+        "help_desc": "Alert the moderators",
+        "success": "Moderators alerted",
+        "no_reason": "Please provide a reason for pinging the Moderator team."
     },
     "quotes":{
         "dark":[
@@ -244,7 +357,9 @@
         "level_updated":"Your level has been updated!",
         "sub_remove":"You are no longer a subscriber!",
         "sub_added":"You are now a subscriber, thanks!",
-        "verified_added":"You are now verified, you cannot unlink or relink any of your accounts for security reasons. Please contact the TryHackMe Admins or Mods if you need to change one of your accounts."
+        "verified_added":"You are now verified, you cannot unlink or relink any of your accounts for security reasons. Please contact the TryHackMe Admins or Mods if you need to change one of your accounts.",
+        "bughunter_add":"You are now a bug hunter, thanks!",
+        "bughunter_remove":"You are no longer a bug hunter!"
     },
     "verify_delete":{
         "help_desc":"Delete a user's token by mentioning them.",
@@ -269,7 +384,7 @@
         "nothing_to_cancel":"There is no vote to cancel."
     },
     "welcome":{
-        "welcome_message":", welcome to the server!\nIf you need help with a room, ask in #community-help.\n\n You can also sync your THM rank on the discord, check your DMs!"
+        "welcome_message":", welcome to the server!\nIf you need help with a room, ask in <#522158539129618453> for direct help, or <#690557518837186560> for hints.\n\n You can also sync your THM rank on the discord, check your DMs!"
     },
     "exploit_db":{
         "help_title": "Help Page of exploit-db",
@@ -294,5 +409,14 @@
         "help_flags_author": "Submitter of your exploit",
         "help_flags_tag": "Tag of your exploit, use `-Help Tag` to see allowed values",
         "help_flags_other": "If you use a flag twice the second value is used.\nIf you don't use any flags, -Title will be used."
+    },
+    "moderation": {
+        "lookup": {
+            "help_desc": "Look-up users by discord ids or thm tokens",
+            "match_failed": "Failed to match a type to your input. (Available types: thm token, discord id, discord mention, discord name+discriminator)",
+            "db_fetch_failed": "Failed to fetch data from the database.",
+            "thm_fetch_failed": "Failed to fetch user data from tryhackme.",
+            "usage": "{thm_token/discord_id/discord_mention/discord_username#discriminator}"
+        }
     }
 }

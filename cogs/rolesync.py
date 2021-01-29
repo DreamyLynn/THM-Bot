@@ -54,6 +54,7 @@ id_ranks = roles["ranks"]
 id_sub = roles["sub"]
 id_contrib = roles["contrib"]
 id_verified = roles["verified"]
+id_bughunter = roles["bughunter"]
 
 # DB
 db = database.connect_to_db()
@@ -81,11 +82,16 @@ async def remove_contrib_role(member):
 
     await member.remove_roles(get(member.guild.roles, id=id_contrib))
 
+async def remove_bughunter_role(member):
+    """Remove the user's bughunter role."""
+
+    await member.remove_roles(get(member.guild.roles, id=id_bughunter))
+
+
 async def remove_verified_role(member):
     """Remove the user's verified role."""
 
     await member.remove_roles(get(member.guild.roles, id=id_verified))
-
 
 # Update a member's roles.
 async def update(member, dm, data, skipUpdatedMessage = False):
@@ -107,6 +113,17 @@ async def update(member, dm, data, skipUpdatedMessage = False):
         await remove_contrib_role(member)
         cmdResult += s_verify["contrib_remove"] + "\n"
 
+    # Special case: Bug Hunter
+    if level == 998:
+        if not has_role(member, id_bughunter):
+            await remove_rank_roles(member)
+            await add_role(member, id_bughunter)
+            cmdResult += s_verify["bughunter_add"] + "\n"
+
+    if level != 998 and has_role(member, id_bughunter):
+        await remove_bughunter_role(member)
+        cmdResult += s_verify["bughunter_remove"] + "\n"
+
     # Normal ranks.
     if level < len(id_ranks):
         if not has_role(member, id_ranks[level]):
@@ -126,7 +143,7 @@ async def update(member, dm, data, skipUpdatedMessage = False):
         if not has_role(member, id_sub):
             await add_role(member, id_sub)
             cmdResult += s_verify["sub_added"] + "\n"
-
+    
     # Checks if the users has the verified role.
     if not has_role(member, id_verified):
         await add_role(member, id_verified)
@@ -209,10 +226,10 @@ class RoleSync(commands.Cog, name="Verifying/Role Assigning Commands"):
                 
                 # If user isn't a member.
                 user = ctx.message.author
-                member = server.get_member(user.id)
+                member = await server.fetch_member(user.id)
 
                 if member == None:
-                    database.remove_user_by_discord_uid(ctx.author.id)
+                    database.remove_user_by_discord_uid(db, ctx.author.id)
                     await ctx.send(s_verify["not_a_member"])
                     return
 

@@ -1,4 +1,5 @@
 import json
+import requests
 import random
 
 import aiohttp
@@ -77,21 +78,75 @@ class Fun(commands.Cog, name="Fun Commands"):
 
         await ctx.send(embed=response)
 
+    ###############
+    ### COOCTUS ###
+    ###############
+
+    @commands.command(description="COOCTUS!")
+    async def cooctus(self,ctx):
+        response = officialEmbed("It's cooctus time!", color=0xffffff)
+        response.set_image(
+            url="https://i.imgur.com/t5UD8iB.png")
+
+        await ctx.send(embed=response)
+
     ########################
     ### Shiba And Spaniel###
     ########################
     @commands.command(description="Sends a shibe picture.")
     async def shibe(self, ctx):
-        response = officialEmbed("Shiba Inu", color=0xff4500)
-        response.set_image(
-            url="https://justsomething.co/wp-content/uploads/2017/12/ryujii-handsome-ridiculously-cute-shiba-japan-758x397.jpg")
+        response = officialEmbed("Shiba Inu", color=0xff4500, footer="Images from dog.ceo ❤")
+        response.set_image(url=self._get_dog_image("shiba"))
         await ctx.send(embed=response)
 
     @commands.command(description="Sends a spaniel picture.")
     async def spaniel(self, ctx):
-        response = officialEmbed("Spaniel", color=0xff4500)
-        response.set_image(
-            url="https://www.about-cocker-spaniels.com/images/cute-puppy-names-boys-1.jpg")
+        response = officialEmbed("Spaniel", color=0xff4500, footer="Images from dog.ceo ❤")
+        response.set_image(url=self._get_dog_image("spaniel"))
+        await ctx.send(embed=response)
+
+
+    @staticmethod
+    def _get_dog_image(breed):
+        r = requests.get(f"https://dog.ceo/api/breed/{breed}/images/random") # spaniel, shiba
+        return json.loads(r.text)["message"]
+   
+    ##########################
+    ### Muir Hosted Images ###
+    ##########################
+    @staticmethod
+    def _get_hosted_image_for(name):
+        r = requests.get(f"http://{name}.muirlandoracle.co.uk")
+        return json.loads(r.text)["message"]
+
+    ########################
+    ###     Ollie Bot    ###
+    ########################
+    
+    @commands.command(description="Sends a Ollie picture.")
+    async def ollie(self, ctx):
+        response = officialEmbed("Ollie", color=0xff4500, footer="Ollie Unix Montgomery")
+        response.set_image(url=self._get_hosted_image_for('ollie'))
+        await ctx.send(embed=response)
+
+    ##############
+    ###  Bash  ###
+    ##############
+
+    @commands.command(description="Sends a Bash pic.")
+    async def bash(self, ctx):
+        response = officialEmbed("Bash", color=0xff4500)
+        response.set_image(url=self._get_hosted_image_for('bash'))
+        await ctx.send(embed=response)
+
+    ##############
+    ###  Reno  ###
+    ##############
+
+    @commands.command(description="Sends a Mr. Pupperino pic.")
+    async def reno(self, ctx):
+        response = officialEmbed("Reno", color=0xff4500, footer="Blobular Mr. Pupperino")
+        response.set_image(url=self._get_hosted_image_for('reno'))
         await ctx.send(embed=response)
 
     ############

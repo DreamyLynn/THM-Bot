@@ -1,3 +1,16 @@
+"""Rooms Cog
+Cog to handle room lookup and details related to them.
+Also handles the automatic announcement of a new room from TryHackMe
+
+User Usage:
+writeup [room code]
+randomroom
+
+Admin Only:
+room - manually announce last announced room
+newroom [room code] - manually announce a new room via room code
+"""
+
 import asyncio
 import json
 import time
@@ -9,6 +22,7 @@ import discord
 from discord.ext import commands
 
 import libs.config as config
+from libs.command_manager import check
 from libs.embedmaker import officialEmbed
 from libs.utils import api_fetch, has_role, bool_to_yesno
 from libs.thm_api import get_public_rooms
@@ -97,7 +111,7 @@ class Room(commands.Cog):
         data = await api_fetch(c_api_url["room"].format(room_code))
 
         # If the specified code is wrong.
-        if data["success"] == False:
+        if data[room_code]["success"] == False:
             botMsg = await ctx.send(s_room["code_not_found"].format(room_code))
 
             await asyncio.sleep(5)
@@ -107,36 +121,28 @@ class Room(commands.Cog):
             return
 
         # If there is no writeup.
-        if len(data["writeups"]) == 0:
+        if len(data[room_code]["writeups"]) == 0:
             await ctx.send(s_room["writeup_not_found"])
             return
 
         # Set up embed.
-        img = data["image"]
-        title = data["title"]
+        img = data[room_code]["image"]
+        title = data[room_code]["title"]
         link = c_url_room + room_code
 
         embed = officialEmbed(title, link)
         embed.set_image(url=img)
 
-        for item in data["writeups"]:
+        for item in data[room_code]["writeups"]:
             embed.add_field(
                 name="By: "+item["username"], value=item["link"])
 
         # Send messages.
         await ctx.send(embed=embed)
 
-    @commands.command(description=s_room["room_help_desc"] + " (Admin)", hidden=True)
+    @commands.command(description=s_room["room_help_desc"] + " (Admin, LeadMod)", hidden=True)
+    @check(roles=["modlead", "admin"], dm_flag=False)
     async def room(self, ctx):
-        if not has_role(ctx.author, id_admin):
-            botMsg = await ctx.send(s_no_perm)
-
-            await asyncio.sleep(5)
-
-            await botMsg.delete()
-            await ctx.message.delete()
-            return
-
         # Gets channel.
         channel = self.bot.get_channel(id_channel)
 
@@ -145,24 +151,16 @@ class Room(commands.Cog):
 
         await announce_room(channel, data[0])
 
-    @commands.command(name="newroom", description=s_room["newroom_help_desc"] + " (Admin)", usage="{room_code}", hidden=True)
+    @commands.command(name="newroom", description=s_room["newroom_help_desc"] + " (Admin, LeadMod)", usage="{room_code}", hidden=True)
+    @check(roles=["modlead", "admin"], dm_flag=False)
     async def new_room(self, ctx, room=""):
-        if not has_role(ctx.author, id_admin):
-            botMsg = await ctx.send(s_no_perm)
-
-            await asyncio.sleep(5)
-
-            await botMsg.delete()
-            await ctx.message.delete()
-            return
-        
         if room == "":
             await ctx.send(s_room["no_code"])
         
         else:
             data = await api_fetch(c_api_url["room"].format(room))
 
-            if data["success"] == False:
+            if data[room]["success"] == False:
                 await ctx.send(s_room["code_not_found"].format(room))
                 return
 
@@ -207,21 +205,21 @@ class Room(commands.Cog):
             # Getting infos from the API.
             data = await api_fetch(c_api_url["newrooms"])
 
-            # Getting the titles from both JSONs.
+            # Getting the room codes from both JSONs.
             # Try-except to avoid wrongly parsed stuff [...] (making the bot more stable thx to this)
             try:
-                titleJsonData = data[0]["title"]
-                titleStoredData = stored_data["title"]
+                new_room_code = data[0]["code"]
+                last_room_code = stored_data["code"]
             except:
                 copyfile(c_room_default_data, c_room_data)
 
                 roomJson = open(c_room_data, "r").read()
 
-                titleJsonData = data[0]["title"]
-                titleStoredData = stored_data[0]["title"]
+                new_room_code = data[0]["code"]
+                last_room_code = stored_data[0]["code"]
 
             # Check for new data.
-            if titleJsonData != titleStoredData:
+            if new_room_code != last_room_code:
                 await announce_room(channel, data[0])
 
             await asyncio.sleep(c_sleep_time)
@@ -234,3 +232,4 @@ class Room(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Room(bot))
+	

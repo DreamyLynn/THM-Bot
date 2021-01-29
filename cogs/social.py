@@ -29,6 +29,9 @@ reddit = social["reddit"]
 website = social["website"]
 tweet = social["tweet"]
 discord = social["discord"]
+blog = social["blog"]
+shop = social["shop"]
+email = social["email"]
 
 # URLs.
 gitURL = github["url"]
@@ -36,6 +39,9 @@ twitterURL = twitter["url"]
 redditURL = reddit["url"]
 websiteURL = website["url"]
 discordURL = discord["url"]
+blogURL = blog["url"]
+shopURL = shop["url"]
+emailURL = email["url"]
 
 # Titles.
 gitTitle = github["title"]
@@ -43,6 +49,9 @@ twitterTitle = twitter["title"]
 redditTitle = reddit["title"]
 websiteTitle = website["title"]
 discordTitle = discord["title"]
+blogTitle = blog["title"]
+shopTitle = shop["title"]
+emailTitle = email["title"]
 
 # Pictures.
 gitPic = github["pic"]
@@ -50,6 +59,9 @@ twitterPic = twitter["pic"]
 redditPic = reddit["pic"]
 websitePic = website["pic"]
 discordPic = discord["pic"]
+blogPic = blog["pic"]
+shopPic = shop["pic"]
+emailPic = email["pic"]
 
 # Colors
 twitterColor = 0x08a0e9
@@ -57,6 +69,9 @@ redditColor = 0xff5700
 websiteColor = 0x000000
 gitColor = 0x0463C4
 discordColor = 0x7289da
+blogColor = 0x000000
+shopColor = 0x000000
+emailColor = 0x000000
 
 
 #############
@@ -109,6 +124,24 @@ class Social(commands.Cog):
             discordTitle, discordURL, discordPic, discordColor)
         await ctx.send(embed=response)
 
+    @commands.command(description=blog["help_desc"])
+    async def blog(self, ctx):
+        response = getEmbedSocial(
+            blogTitle, blogURL, blogPic, blogColor)
+        await ctx.send(embed=response)
+    
+    @commands.command(description=shop["help_desc"])
+    async def shop(self, ctx):
+        response = getEmbedSocial(
+            shopTitle, shopURL, shopPic, shopColor)
+        await ctx.send(embed=response)
+
+    @commands.command(description=email["help_desc"])
+    async def email(self, ctx):
+        response = getEmbedSocial(
+            emailTitle, emailURL, emailPic, emailColor)
+        await ctx.send(embed=response)
+
     @commands.command(description=social["help_desc"])
     async def social(self, ctx):
         response = getEmbedSocial(
@@ -126,6 +159,18 @@ class Social(commands.Cog):
         response = getEmbedSocial(
             discordTitle, discordURL, discordPic, discordColor)
         await ctx.send(embed=response)    
+
+        response = getEmbedSocial(
+            blogTitle, blogURL, blogPic, blogColor)
+        await ctx.send(embed=response)
+
+        response = getEmbedSocial(
+            shopTitle, shopURL, shopPic, shopColor)
+        await ctx.send(embed=response) 
+
+        response = getEmbedSocial(
+            emailTitle, emailURL, emailPic, emailColor)
+        await ctx.send(embed=response)
 
     @commands.command(name="tweet", description=tweet["help_desc"])
     async def last_tweet(self, ctx):

@@ -18,14 +18,16 @@
     "cogs.faq",
     "cogs.rules",
     "cogs.jira",
-    "cogs.gtfobins",
     "cogs.social",
     "cogs.devrole",
     "cogs.staff_vote",
     "cogs.fun",
     "cogs.help",
     "cogs.feedback",
-    "cogs.exploit-db"
+    "cogs.exploit-db",
+    "cogs.docs",
+    "cogs.pingmods",
+    "cogs.moderation"
   ],
   "disabled_cogs": [],
   "info": {
@@ -60,9 +62,12 @@
     "admin": 568611667902988288,
     "modlead": 711606985925197844,
     "mod": 612305984752451594,
+    "trialmod": 607651093006123139,
     "announcementrole": 723526134356115536,
     "devLead": 578349526574694421,
-    "dev": 578056412790390785
+    "dev": 578056412790390785,
+    "bughunter": 638047699328958483,
+    "mentor": 651561956490346515
   },
   "channels": {
     "welcome": 648878292551598080,
@@ -70,7 +75,9 @@
     "stats_thm_users": 723527533458620507,
     "stats_rooms": 723527788589482094,
     "stats_discord_users": 734487967019565189,
-    "staff_voting_cm": 733142795325538356
+    "staff_voting_cm": 733142795325538356,
+    "staff_lounge": 742894185186590720,
+    "bot_commands": 610854557299376168
   },
   "emotes":{
     "skidygif":733473514149118043,
@@ -82,7 +89,7 @@
     "room_join": "https://tryhackme.com/jr/",
     "user_profile": "https://tryhackme.com/p/{}",
     "api": {
-      "room": "https://tryhackme.com/api/room/{}",
+      "room": "https://tryhackme.com/api/room-details?codes={}",
       "newrooms": "http://tryhackme.com/api/new-rooms/",
       "token": "https://tryhackme.com/tokens/discord/",
       "leaderboard": "https://tryhackme.com/api/leaderboards",
@@ -104,7 +111,8 @@
   },
   "images": {
     "openvpn": "https://tryhackme-images.s3.amazonaws.com/room-icons/21367ae689e69d81d71b4591474e62ad.png",
-    "milestone": "https://i.imgur.com/rntbP3y.png"
+    "milestone": "https://i.imgur.com/rntbP3y.png",
+    "aocfaq": "https://styles.redditmedia.com/t5_ygv5g/styles/communityIcon_86434dp6fh061.png"
   },
   "data_files": {
     "gtfobins": "data/gtfobins.json",

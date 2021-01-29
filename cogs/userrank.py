@@ -10,6 +10,7 @@ from requests.exceptions import HTTPError
 
 import libs.config as config
 import libs.database as database
+from libs.command_manager import check
 from libs.embedmaker import officialEmbed
 from libs.utils import sanitize_check
 from libs.utils import api_fetch
@@ -28,6 +29,7 @@ c_api_token = config.get_config("url")["api"]["token"]
 
 s_userrank = config.get_string("ranks")["userrank"]
 s_quotes = config.get_string("quotes")["regular_quotes"]
+s_not_sanitized = config.get_string("commands")["not_sanitized"]
 
 #############
 # Functions #
@@ -107,6 +109,7 @@ class Userrank(commands.Cog, name="Rank Commands"):
             await self.send_rank(ctx, user)
 
     @commands.command(description=s_userrank["help_desc"], usage="[@mention/username]")
+    @check(channels="bot_commands")
     async def rank(self, ctx, user=None):
         is_id = False
 
@@ -127,7 +130,7 @@ class Userrank(commands.Cog, name="Rank Commands"):
 
         # THM Username.
         if sanitize_check(user) == False:
-            await ctx.send(config.get_string("not_sanitized"))
+            await ctx.send(s_not_sanitized)
             return
         if is_id:
             await self.rank_from_id(ctx, user)

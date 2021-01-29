@@ -16,7 +16,7 @@ from libs.embedmaker import officialEmbed
 # Strings and images.
 s_faq = config.get_string("faq")
 img_openvpn = config.get_config("images")["openvpn"]
-
+img_aocfaq = config.get_config("images")["aocfaq"]
 
 ############
 # COG Body #
@@ -46,5 +46,22 @@ class FAQ(commands.Cog):
 
         await ctx.send(embed=response)
 
+    @commands.command(name="vpnscript", description=s_faq["vpnscript"][0])
+    async def vpnscript(self, ctx):
+        response = officialEmbed()
+
+        response.set_thumbnail(url=(img_openvpn))
+        response.add_field(name=s_faq["vpnscript"][0], value=s_faq["vpnscript"][1])
+
+        await ctx.send(embed=response)
+
+    @commands.command(name="aocfaq", description=s_faq["aocfaq"][0])
+    async def aocfaq(self, ctx):
+        response = officialEmbed()
+
+        response.set_thumbnail(url=(img_aocfaq))
+        response.add_field(name=s_faq["aocfaq"][0], value=s_faq["aocfaq"][1])
+
+        await ctx.send(embed=response)       
 def setup(bot):
     bot.add_cog(FAQ(bot))

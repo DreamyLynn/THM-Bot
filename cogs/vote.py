@@ -15,7 +15,7 @@ from libs.utils import has_role
 #####################
 
 s_vote = config.get_string("vote")
-
+s_no_perm = config.get_string("commands")["no_perm"]
 
 ###################
 # Other variables #
@@ -105,7 +105,7 @@ class Vote(commands.Cog):
 
         # Check for the user to be admin.
         if not has_role(ctx.author, id_admin):
-            botMsg = await ctx.send(config.get_string("no_perm"))
+            botMsg = await ctx.send(s_no_perm)
             await asyncio.sleep(5)
             await botMsg.delete()
             return
